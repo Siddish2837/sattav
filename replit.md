@@ -4,6 +4,38 @@
 
 pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
 
+## AI Career Decision Engine (`artifacts/career-engine`)
+
+A complete, premium SaaS web app for AI-powered career discovery and analysis.
+
+### Features
+- Landing page with SaaS-grade UI (deep navy/indigo theme)
+- Entry selection: Resume upload (simulated) or Fresher path
+- AI-powered career matching using weighted scoring logic
+- Survival analysis with animated circular score
+- Skill gap analysis with progress bars
+- Month-by-month career roadmaps
+- Mentor connect cards with request functionality
+
+### Tech Stack
+- React + Vite, TypeScript
+- Framer Motion for animations
+- TailwindCSS with shadcn/ui
+- wouter for routing
+- React Context for global state
+
+### Logic Files (src/logic/)
+- `match.js` — Career match score: (skill × 0.5) + (interest × 0.3) + (goal × 0.2)
+- `survival.js` — Survival score: stress fit + work hours fit + learning curve
+- `skillGap.js` — Compare required vs user skills
+
+### Data Files (src/data/)
+- `careers.js` — 6 career tracks: Software Engineer, Data Scientist, UX Designer, Product Manager, Cybersecurity Analyst, Content Creator
+- `mentors.js` — Mentor profiles per career track
+
+### User Flow
+Landing → Entry Selection → Resume Analyzer OR Fresher Input → Processing → Recommendations → Career Analysis
+
 ## Stack
 
 - **Monorepo tool**: pnpm workspaces

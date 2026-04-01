@@ -1,0 +1,241 @@
+You are a senior full-stack engineer and SaaS product designer.
+
+Build a complete, professional web application called:
+
+"AI Career Decision Engine with Reality Check"
+
+This must run properly inside Replit with clean structure and no broken dependencies.
+
+---
+
+🎯 IMPORTANT:
+
+- Build step-by-step
+- Keep code modular
+- Ensure everything runs without errors
+- Do NOT overcomplicate backend
+
+---
+
+🧱 TECH STACK (STRICT):
+
+- React (Vite)
+- Tailwind CSS
+- Framer Motion
+- Optional: OpenAI API (frontend only, fallback required)
+
+---
+
+📁 PROJECT STRUCTURE (FOLLOW EXACTLY):
+
+src/
+components/
+pages/
+logic/
+data/
+App.jsx
+main.jsx
+
+---
+
+🧠 CORE FEATURES:
+
+1. Landing Page
+
+- Minimal, professional SaaS UI
+- Clean typography + spacing
+- CTA button
+
+---
+
+2. Entry Selection Page
+
+- Two options:
+  • Upload Resume
+  • I am a Fresher
+- Card-based UI with hover animation
+
+---
+
+3. Resume Analyzer (Simulated)
+
+- Show "Parsing resume..."
+- Then display mock extracted:
+  Skills, Projects, Interests
+- Use tag/chip UI
+
+---
+
+4. Fresher Input Page
+
+- Ask:
+  Interest
+  Career Goal
+
+---
+
+5. AI Processing Page
+
+- Animated loading text:
+  "Analyzing..."
+  "Matching careers..."
+  "Evaluating fit..."
+
+---
+
+6. Career Recommendation Page
+   Show 3 cards:
+
+- Safe
+- Balanced
+- Dream
+
+Each includes:
+
+- Match %
+- Salary
+- Demand
+- Short explanation
+
+---
+
+⚙️ LOGIC (MUST BE IN /logic FOLDER):
+
+Create separate files:
+
+match.js
+
+- Match = (skill × 0.5) + (interest × 0.3) + (goal × 0.2)
+
+survival.js
+
+- Based on:
+  stress fit
+  work hours fit
+  learning curve
+
+skillGap.js
+
+- Compare required vs user skills
+
+---
+
+7. Career Simulation Section
+
+- Day in life
+- Challenges
+
+---
+
+🔥 8. Survival Analysis (MAIN HIGHLIGHT)
+
+- Large animated score
+- Color coded (green/yellow/red)
+- Show:
+  Stress fit
+  Work hours fit
+  Risk message
+
+---
+
+9. Skill Gap Section
+
+- Skills you have ✅
+- Missing skills ❌
+- Progress bar animation
+
+---
+
+10. Roadmap Section
+
+- Month-wise steps
+- Clean timeline UI
+
+---
+
+11. Mentor Connect Section
+
+- Mentor cards:
+  Name, Role, Experience
+- Filter based on career
+- "Request Mentorship" button
+
+---
+
+✨ AI ENHANCEMENT (OPTIONAL):
+
+Use OpenAI API ONLY for:
+
+- Career explanation
+- Simulation text
+- Roadmap text
+
+IMPORTANT:
+
+- Add fallback if API fails
+- Do NOT use API for scoring logic
+
+---
+
+🎨 UI/UX RULES:
+
+- Premium SaaS dashboard design
+- Consistent spacing (8px / 16px / 24px)
+- Clean layout
+- Avoid clutter
+- Use card-based UI
+
+Color system:
+
+- Green → safe
+- Yellow → moderate
+- Red → risky
+
+---
+
+✨ ANIMATIONS:
+
+Use Framer Motion:
+
+- Page transitions
+- Card hover (slight scale)
+- Progress bars
+- Score animation
+
+Animations must be subtle and smooth.
+
+---
+
+⚠️ IMPORTANT CONSTRAINTS:
+
+- No complex backend
+- No unnecessary features
+- No broken imports
+- Keep everything runnable in Replit
+
+---
+
+🚀 FINAL STEP (MANDATORY):
+
+After building everything:
+
+1. Fix all errors
+2. Improve UI to premium SaaS level
+3. Improve spacing and alignment
+4. Optimize animations using Framer Motion
+5. Refactor into reusable components
+6. Ensure logic is clean and separated
+
+---
+
+🎯 OUTPUT REQUIREMENT:
+
+- Fully working app
+- Clean navigation
+- Professional UI
+- Smooth animations
+- No runtime errors
+
+---
+
+Build step-by-step and ensure the app runs successfully inside Replit.
