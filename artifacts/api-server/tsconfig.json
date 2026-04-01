@@ -3,15 +3,20 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "types": ["node"]
+
+    "types": ["node"],
+
+    // 🔑 FIXES YOUR ERRORS
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+
+    // ✅ Recommended (prevents future headaches)
+    "strict": true,
+    "skipLibCheck": true
   },
   "include": ["src"],
   "references": [
-    {
-      "path": "../../lib/db"
-    },
-    {
-      "path": "../../lib/api-zod"
-    }
+    { "path": "../../lib/db" },
+    { "path": "../../lib/api-zod" }
   ]
 }
