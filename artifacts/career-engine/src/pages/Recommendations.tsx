@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Recommendations() {
   const [, setLocation] = useLocation();
-  const { recommendations, setSelectedCareer } = useAppContext();
+  const { recommendations, setSelectedCareer, resetState } = useAppContext();
 
   const handleSelect = (career: Career) => {
     setSelectedCareer(career);
@@ -67,7 +67,7 @@ export default function Recommendations() {
           </motion.div>
           
           <div className="flex justify-center mt-12">
-            <Button variant="ghost" onClick={() => setLocation("/entry")} className="text-muted-foreground">
+            <Button variant="ghost" onClick={() => { resetState(); setLocation("/entry"); }} className="text-muted-foreground">
               <ArrowLeft className="w-4 h-4 mr-2" /> Start Over
             </Button>
           </div>

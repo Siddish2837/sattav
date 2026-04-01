@@ -802,12 +802,3 @@ export function getAllDomains() {
   return [...new Set(CAREERS.map((c) => c.domain))];
 }
 
-export const MOCK_RESUME_DATA = {
-  skills: ["JavaScript", "React", "Python", "Git", "SQL", "HTML", "CSS", "Node.js"],
-  projects: [
-    "E-commerce web app with React and Node.js",
-    "Python data scraper for job listings",
-    "Portfolio website with animations",
-  ],
-  interests: ["Web Development", "Open Source", "Machine Learning"],
-};

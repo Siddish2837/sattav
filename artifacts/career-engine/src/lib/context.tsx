@@ -32,6 +32,14 @@ export type Recommendations = {
   dream: RecommendationInfo | null;
 };
 
+export type ParsedResumeData = {
+  skills: string[];
+  education: string[];
+  experience: string[];
+  summary: string;
+  filename: string;
+};
+
 interface AppState {
   userType: "fresher" | "resume" | null;
   skills: string[];
@@ -39,12 +47,14 @@ interface AppState {
   careerGoal: string;
   selectedCareer: Career | null;
   recommendations: Recommendations;
+  resumeData: ParsedResumeData | null;
   setUserType: (type: "fresher" | "resume" | null) => void;
   setSkills: (skills: string[]) => void;
   setInterests: (interests: string) => void;
   setCareerGoal: (goal: string) => void;
   setSelectedCareer: (career: Career | null) => void;
   setRecommendations: (recs: Recommendations) => void;
+  setResumeData: (data: ParsedResumeData | null) => void;
   resetState: () => void;
 }
 
@@ -56,7 +66,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [interests, setInterests] = useState("");
   const [careerGoal, setCareerGoal] = useState("");
   const [selectedCareer, setSelectedCareer] = useState<Career | null>(null);
-  const [recommendations, setRecommendations] = useState<Recommendations>({ safe: null, balanced: null, dream: null });
+  const [recommendations, setRecommendations] = useState<Recommendations>({
+    safe: null,
+    balanced: null,
+    dream: null,
+  });
+  const [resumeData, setResumeData] = useState<ParsedResumeData | null>(null);
 
   const resetState = () => {
     setUserType(null);
@@ -65,6 +80,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setCareerGoal("");
     setSelectedCareer(null);
     setRecommendations({ safe: null, balanced: null, dream: null });
+    setResumeData(null);
   };
 
   return (
@@ -76,12 +92,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
         careerGoal,
         selectedCareer,
         recommendations,
+        resumeData,
         setUserType,
         setSkills,
         setInterests,
         setCareerGoal,
         setSelectedCareer,
         setRecommendations,
+        setResumeData,
         resetState,
       }}
     >

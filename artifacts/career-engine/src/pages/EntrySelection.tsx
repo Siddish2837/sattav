@@ -1,9 +1,8 @@
 import React from "react";
-import { Link, useLocation } from "wouter";
+import { useLocation } from "wouter";
 import { motion } from "framer-motion";
-import { UploadCloud, GraduationCap, ArrowLeft } from "lucide-react";
+import { UploadCloud, GraduationCap } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { PageTransition } from "@/components/PageTransition";
 import { NavBar } from "@/components/NavBar";
 import { useAppContext } from "@/lib/context";
@@ -23,11 +22,6 @@ export default function EntrySelection() {
       <div className="flex-1 flex flex-col items-center justify-center p-4">
         <div className="w-full max-w-4xl mx-auto space-y-8">
           <div className="space-y-2 text-center mb-12">
-            <Link href="/">
-              <Button variant="ghost" size="sm" className="mb-4 text-muted-foreground">
-                <ArrowLeft className="w-4 h-4 mr-2" /> Back
-              </Button>
-            </Link>
             <h1 className="text-3xl md:text-5xl font-bold tracking-tight">How should we start?</h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Choose your starting point. We'll tailor the analysis based on where you are in your journey.
