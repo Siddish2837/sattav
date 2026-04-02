@@ -11,60 +11,55 @@ import { computeCareerAnalysis } from '../logic/analysis';
 
 const router = Router();
 
-const uploadDir = path.join(process.cwd(), 'uploads');
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
+const storage = multer.memoryStorage();
+const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 } }); // 5MB limit for speed
 
-const upload = multer({ dest: 'uploads/' });
+const SKILLS_DB = [
+  "python", "java", "c++", "javascript", "react", "node", "sql",
+  "machine learning", "data analysis", "html", "css", "typescript",
+  "docker", "kubernetes", "aws", "cloud", "security", "statistics"
+];
+
+const SKILL_MAP: Record<string, string> = {
+  "js": "javascript",
+  "ts": "typescript",
+  "ml": "machine learning",
+  "ai": "machine learning"
+};
+
+// Pre-compile regex for O(n) extraction
+const SKILL_REGEX = new RegExp(`\\b(${SKILLS_DB.join('|')}|${Object.keys(SKILL_MAP).join('|')})\\b`, 'gi');
 
 const extractSkills = (text: string) => {
-  const skillsDB = [
-    "python", "java", "c++", "javascript", "react", "node", "sql",
-    "machine learning", "data analysis", "html", "css", "typescript",
-    "docker", "kubernetes", "aws", "cloud", "security", "statistics"
-  ];
-  const skillMap: Record<string, string> = {
-    "js": "javascript",
-    "ts": "typescript",
-    "ml": "machine learning",
-    "ai": "machine learning"
-  };
-
   const normalizedText = text.toLowerCase();
+  const matches = normalizedText.match(SKILL_REGEX) || [];
   const extracted = new Set<string>();
 
-  skillsDB.forEach(skill => {
-    if (normalizedText.includes(skill)) extracted.add(skill);
-  });
-
-  // Check map
-  Object.keys(skillMap).forEach(key => {
-    if (normalizedText.split(/\W+/).includes(key)) {
-      extracted.add(skillMap[key]);
-    }
+  matches.forEach(m => {
+    const skill = m.toLowerCase();
+    extracted.add(SKILL_MAP[skill] || skill);
   });
 
   return Array.from(extracted);
 };
 
 const getRecommendations = ({ skills, interests, careerGoal }: { skills: string[], interests: string, careerGoal: string }) => {
+  // Use a slightly faster mapping by avoiding deep copies during scoring
   const scoredCareers = CAREERS.map(career => {
     const analysis = computeCareerAnalysis(career, skills, interests, careerGoal);
-    const matchedSkills = career.requiredSkills.filter(s => 
-      skills.some(userSkill => s.toLowerCase().includes(userSkill.toLowerCase()))
-    );
+    
+    // Inline small helper to avoid nested closure overhead
+    const matchedSkills = career.requiredSkills.filter(s => {
+      const lowerS = s.toLowerCase();
+      return skills.some(us => lowerS.includes(us));
+    });
     
     const reason = matchedSkills.length > 0 
-      ? `Based on your proficiency in ${matchedSkills.slice(0, 3).join(", ")}, this role matches your profile.`
-      : `This matches your interest in ${interests}, though some technical skill-up is recommended.`;
+      ? `Matches your ${matchedSkills.slice(0, 2).join(", ")} skills.`
+      : `Matches your interest in ${interests}.`;
 
     return { 
-      career: {
-        ...career,
-        id: career.id,
-        title: career.title
-      }, 
+      career: { id: career.id, title: career.title, type: career.type }, 
       score: analysis.finalScore,
       reason,
       matchedSkills,
@@ -78,38 +73,33 @@ const getRecommendations = ({ skills, interests, careerGoal }: { skills: string[
   }).sort((a, b) => b.score - a.score);
 
   const dream = scoredCareers.find(c => c.career.type === "dream") || scoredCareers[0];
-  const balanced = scoredCareers.find(c => c.career.type === "balanced" && (c.career as any).id !== (dream?.career as any).id) || scoredCareers[1];
-  const safe = scoredCareers.find(c => c.career.type === "safe" && (c.career as any).id !== (dream?.career as any).id && (c.career as any).id !== (balanced?.career as any).id) || scoredCareers[2];
+  const balanced = scoredCareers.find(c => c.career.type === "balanced" && c.career.id !== dream?.career.id) || scoredCareers[1];
+  const safe = scoredCareers.find(c => c.career.type === "safe" && c.career.id !== dream?.career.id && c.career.id !== balanced?.career.id) || scoredCareers[2];
 
   return { safe, balanced, dream };
 };
 
 router.post('/', upload.single('resume'), async (req, res) => {
   try {
-    if (!req.file) {
+    if (!req.file || !req.file.buffer) {
       return res.status(400).json({ success: false, error: 'No resume file uploaded' });
     }
 
-    const dataBuffer = fs.readFileSync(req.file.path);
-    const pdf = await pdfParse(dataBuffer);
-
-    // Clean up temporary file
-    fs.unlinkSync(req.file.path);
-
+    // Direct buffer parse (No Disk I/O)
+    const pdf = await pdfParse(req.file.buffer);
     const skills = extractSkills(pdf.text);
     
     if (skills.length === 0) {
       return res.status(422).json({
         success: false,
-        error: "Unable to extract meaningful technical skills from this resume. Please ensure it is a text-based PDF."
+        error: "Unable to extract skills. Please use a text-based PDF."
       });
     }
 
-    // Connect to recommendation engine
     const recommendations = getRecommendations({
       skills,
-      interests: "technology",   // default
-      careerGoal: "growth"       // default
+      interests: "technology",
+      careerGoal: "growth"
     });
 
     return res.json({
