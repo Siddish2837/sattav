@@ -1,0 +1,11 @@
+
+> workspace@0.0.0 typecheck C:\Users\victu\ca\sattav
+> tsc --build && pnpm -r --if-present run typecheck
+
+Scope: 7 of 8 workspace projects
+api-server typecheck$ tsc -p tsconfig.json --noEmit
+scripts typecheck$ tsc -p tsconfig.json --noEmit
+career-engine typecheck$ tsc -p tsconfig.json --noEmit
+scripts typecheck: Done
+api-server typecheck: Done
+career-engine typecheck: Done

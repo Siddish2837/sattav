@@ -1,0 +1,46 @@
+
+> workspace@0.0.0 build C:\Users\victu\ca\sattav
+> pnpm --filter api-server build && pnpm --filter career-engine build
+
+
+> @workspace/api-server@0.0.0 build C:\Users\victu\ca\sattav\api-server
+> node ./build.mjs
+
+
+  dist\index.mjs                   1.5mb
+  dist\pino-worker.mjs           153.2kb
+  dist\pino-file.mjs             141.9kb
+  dist\pino-pretty.mjs           114.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 564ms
+
+> @workspace/career-engine@0.0.0 build C:\Users\victu\ca\sattav\career-engine
+> vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 9 modules transformed.
+[31m✗[39m Build failed in 453ms
+[31merror during build:
+[31msrc/lib/context.js (55:12): Expression expected[31m
+file: [36mC:/Users/victu/ca/sattav/career-engine/src/lib/context.js:55:12[31m
+[33m
+53:         setRecommendations({ safe: null, balanced: null, dream: null });
+54:     };
+55:     return (<AppContext.Provider value={{
+                ^
+56:             userType,
+57:             skills,
+[31m
+    at getRollupError (file:///C:/Users/victu/ca/sattav/node_modules/.pnpm/rollup@4.60.1/node_modules/rollup/dist/es/shared/parseAst.js:406:41)
+    at ParseError.initialise (file:///C:/Users/victu/ca/sattav/node_modules/.pnpm/rollup@4.60.1/node_modules/rollup/dist/es/shared/node-entry.js:14798:28)
+    at convertNode (file:///C:/Users/victu/ca/sattav/node_modules/.pnpm/rollup@4.60.1/node_modules/rollup/dist/es/shared/node-entry.js:16774:10)
+    at convertProgram (file:///C:/Users/victu/ca/sattav/node_modules/.pnpm/rollup@4.60.1/node_modules/rollup/dist/es/shared/node-entry.js:16010:12)
+    at Module.setSource (file:///C:/Users/victu/ca/sattav/node_modules/.pnpm/rollup@4.60.1/node_modules/rollup/dist/es/shared/node-entry.js:17753:24)
+    at async ModuleLoader.addModuleSource (file:///C:/Users/victu/ca/sattav/node_modules/.pnpm/rollup@4.60.1/node_modules/rollup/dist/es/shared/node-entry.js:21885:13)[39m
+C:\Users\victu\ca\sattav\career-engine:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/career-engine@0.0.0 build: `vite build`
+Exit status 1
+ ELIFECYCLE  Command failed with exit code 1.

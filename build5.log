@@ -1,0 +1,49 @@
+
+> workspace@0.0.0 build C:\Users\victu\ca\sattav
+> pnpm --filter api-server build && pnpm --filter career-engine build
+
+
+> @workspace/api-server@0.0.0 build C:\Users\victu\ca\sattav\api-server
+> node ./build.mjs
+
+
+  dist\index.mjs                   1.5mb
+  dist\pino-worker.mjs           153.2kb
+  dist\pino-file.mjs             141.9kb
+  dist\pino-pretty.mjs           114.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 714ms
+
+> @workspace/career-engine@0.0.0 build C:\Users\victu\ca\sattav\career-engine
+> vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 2192 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                          [39m[1m[2m  1.09 kB[22m[1m[22m[2m │ gzip:  0.50 kB[22m
+[2mdist/[22m[35massets/index-Dqd62cmW.css           [39m[1m[2m106.31 kB[22m[1m[22m[2m │ gzip: 17.19 kB[22m
+[2mdist/[22m[36massets/PageTransition-Xl8oUHYf.js   [39m[1m[2m  0.35 kB[22m[1m[22m[2m │ gzip:  0.26 kB[22m
+[2mdist/[22m[36massets/not-found-C6xJrgV0.js        [39m[1m[2m  0.77 kB[22m[1m[22m[2m │ gzip:  0.42 kB[22m
+[2mdist/[22m[36massets/badge-TGlv2SWM.js            [39m[1m[2m  0.78 kB[22m[1m[22m[2m │ gzip:  0.43 kB[22m
+[2mdist/[22m[36massets/SkillChip-D3b-CjZ9.js        [39m[1m[2m  0.80 kB[22m[1m[22m[2m │ gzip:  0.48 kB[22m
+[2mdist/[22m[36massets/api-BJuF8-7G.js              [39m[1m[2m  0.83 kB[22m[1m[22m[2m │ gzip:  0.55 kB[22m
+[2mdist/[22m[36massets/card-BDaJH0Jp.js             [39m[1m[2m  1.01 kB[22m[1m[22m[2m │ gzip:  0.38 kB[22m
+[2mdist/[22m[36massets/EntrySelection-Lc2Dh4WA.js   [39m[1m[2m  2.99 kB[22m[1m[22m[2m │ gzip:  1.11 kB[22m
+[2mdist/[22m[36massets/Processing-CVY26_RX.js       [39m[1m[2m  3.60 kB[22m[1m[22m[2m │ gzip:  1.50 kB[22m
+[2mdist/[22m[36massets/NavBar-8xsrQoUe.js           [39m[1m[2m  3.77 kB[22m[1m[22m[2m │ gzip:  1.69 kB[22m
+[2mdist/[22m[36massets/ResumeAnalyzer-Bteo2spz.js   [39m[1m[2m  4.24 kB[22m[1m[22m[2m │ gzip:  1.45 kB[22m
+[2mdist/[22m[36massets/FresherInput-DMO0oN-v.js     [39m[1m[2m  4.35 kB[22m[1m[22m[2m │ gzip:  1.82 kB[22m
+[2mdist/[22m[36massets/Landing-y99gSely.js          [39m[1m[2m  4.95 kB[22m[1m[22m[2m │ gzip:  1.47 kB[22m
+[2mdist/[22m[36massets/Recommendations-Du-N_2Cg.js  [39m[1m[2m  5.62 kB[22m[1m[22m[2m │ gzip:  1.99 kB[22m
+[2mdist/[22m[36massets/vendor-ui-DrwfNisE.js        [39m[1m[2m  6.79 kB[22m[1m[22m[2m │ gzip:  2.79 kB[22m
+[2mdist/[22m[36massets/CareerAnalysis-rs37qY6K.js   [39m[1m[2m 25.61 kB[22m[1m[22m[2m │ gzip:  7.62 kB[22m
+[2mdist/[22m[36massets/vendor-query-DuSrKD31.js     [39m[1m[2m 32.05 kB[22m[1m[22m[2m │ gzip: 10.10 kB[22m
+[2mdist/[22m[36massets/careers-25gZk9mT.js          [39m[1m[2m 36.23 kB[22m[1m[22m[2m │ gzip: 11.70 kB[22m
+[2mdist/[22m[36massets/index-BSXUK793.js            [39m[1m[2m 97.51 kB[22m[1m[22m[2m │ gzip: 33.95 kB[22m
+[2mdist/[22m[36massets/vendor-motion-B-H2HZUn.js    [39m[1m[2m125.76 kB[22m[1m[22m[2m │ gzip: 41.28 kB[22m
+[2mdist/[22m[36massets/vendor-react-DrSd3mcP.js     [39m[1m[2m134.08 kB[22m[1m[22m[2m │ gzip: 43.06 kB[22m
+[32m✓ built in 7.32s[39m

@@ -1,0 +1,18 @@
+
+> workspace@0.0.0 typecheck C:\Users\victu\ca\sattav
+> tsc --build && pnpm -r --if-present run typecheck
+
+Scope: 7 of 8 workspace projects
+career-engine typecheck$ tsc -p tsconfig.json --noEmit
+api-server typecheck$ tsc -p tsconfig.json --noEmit
+scripts typecheck$ tsc -p tsconfig.json --noEmit
+scripts typecheck: Done
+api-server typecheck: Done
+career-engine typecheck: src/pages/CareerAnalysis.tsx(21,50): error TS2307: Cannot find module '@/logic/survival' or its corresponding type declarations.
+career-engine typecheck: src/pages/Processing.tsx(8,96): error TS2307: Cannot find module '@/logic/match' or its corresponding type declarations.
+career-engine typecheck: src/pages/ResumeAnalyzer.tsx(11,10): error TS2305: Module '"@/data/careers"' has no exported member 'MOCK_RESUME_DATA'.
+career-engine typecheck: Failed
+C:\Users\victu\ca\sattav\career-engine:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/career-engine@0.0.0 typecheck: `tsc -p tsconfig.json --noEmit`
+Exit status 2
+ ELIFECYCLE  Command failed with exit code 2.

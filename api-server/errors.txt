@@ -1,0 +1,3 @@
+src/data/careers.ts(793,31): error TS7006: Parameter 'id' implicitly has an 'any' type.
+src/data/careers.ts(797,36): error TS7006: Parameter 'domain' implicitly has an 'any' type.
+src/routes/health.ts(2,37): error TS2307: Cannot find module '@workspace/api-zod' or its corresponding type declarations.

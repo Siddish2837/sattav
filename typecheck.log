@@ -1,0 +1,20 @@
+
+> workspace@0.0.0 typecheck C:\Users\victu\ca\sattav
+> tsc --build && pnpm -r --if-present run typecheck
+
+Scope: 7 of 8 workspace projects
+api-server typecheck$ tsc -p tsconfig.json --noEmit
+career-engine typecheck$ tsc -p tsconfig.json --noEmit
+scripts typecheck$ tsc -p tsconfig.json --noEmit
+scripts typecheck: Done
+api-server typecheck: Done
+career-engine typecheck: src/components/ui/resizable.tsx(11,51): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("C:/Users/victu/ca/sattav/node_modules/.pnpm/react-resizable-panels@4.8._2f64735786e490514949551fd9a3eb40/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+career-engine typecheck: src/components/ui/resizable.tsx(12,23): error TS2339: Property 'PanelGroup' does not exist on type 'typeof import("C:/Users/victu/ca/sattav/node_modules/.pnpm/react-resizable-panels@4.8._2f64735786e490514949551fd9a3eb40/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+career-engine typecheck: src/components/ui/resizable.tsx(27,51): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("C:/Users/victu/ca/sattav/node_modules/.pnpm/react-resizable-panels@4.8._2f64735786e490514949551fd9a3eb40/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+career-engine typecheck: src/components/ui/resizable.tsx(30,23): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("C:/Users/victu/ca/sattav/node_modules/.pnpm/react-resizable-panels@4.8._2f64735786e490514949551fd9a3eb40/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+career-engine typecheck: src/components/ui/resizable.tsx(42,24): error TS2339: Property 'PanelResizeHandle' does not exist on type 'typeof import("C:/Users/victu/ca/sattav/node_modules/.pnpm/react-resizable-panels@4.8._2f64735786e490514949551fd9a3eb40/node_modules/react-resizable-panels/dist/react-resizable-panels")'.
+career-engine typecheck: Failed
+C:\Users\victu\ca\sattav\career-engine:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/career-engine@0.0.0 typecheck: `tsc -p tsconfig.json --noEmit`
+Exit status 2
+ ELIFECYCLE  Command failed with exit code 2.

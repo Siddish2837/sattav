@@ -1,0 +1,43 @@
+
+> workspace@0.0.0 build C:\Users\victu\ca\sattav
+> pnpm --filter api-server build && pnpm --filter career-engine build
+
+
+> @workspace/api-server@0.0.0 build C:\Users\victu\ca\sattav\api-server
+> node ./build.mjs
+
+
+  dist\index.mjs                   1.5mb
+  dist\pino-worker.mjs           153.2kb
+  dist\pino-file.mjs             141.9kb
+  dist\pino-pretty.mjs           114.3kb
+  dist\thread-stream-worker.mjs    7.3kb
+  ...and 5 more output files...
+
+Done in 948ms
+
+> @workspace/career-engine@0.0.0 build C:\Users\victu\ca\sattav\career-engine
+> vite build
+
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 3 modules transformed.
+[31m✗[39m Build failed in 126ms
+[31merror during build:
+[31m[vite:define] Transform failed with 1 error:
+C:/Users/victu/ca/sattav/career-engine/src/App.js:22:12: ERROR: The JSX syntax extension is not currently enabled[31m
+file: [36mC:/Users/victu/ca/sattav/career-engine/src/App.js[31m
+    at failureErrorWithLog (C:\Users\victu\ca\sattav\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Users\victu\ca\sattav\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:736:50
+    at responseCallbacks.<computed> (C:\Users\victu\ca\sattav\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (C:\Users\victu\ca\sattav\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (C:\Users\victu\ca\sattav\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)[39m
+C:\Users\victu\ca\sattav\career-engine:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/career-engine@0.0.0 build: `vite build`
+Exit status 1
+ ELIFECYCLE  Command failed with exit code 1.
