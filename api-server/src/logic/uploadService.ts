@@ -35,15 +35,16 @@ export class ResumeService {
     const startTime = Date.now();
     
     try {
-      // Limit to first 5 pages to avoid heavy CPU load
-      const pdf = await pdfParse(buffer, { max: 5 });
+      // High-performance limit: Parse only the first page and slice to 3000 chars
+      const pdf = await pdfParse(buffer, { max: 1 });
       
-      const text = pdf.text || '';
+      const rawText = pdf.text || '';
+      const text = rawText.slice(0, 3000); // 3000 character limit as requested
       const pages = pdf.numpages || 0;
       const metadata = pdf.info || {};
 
       if (!text.trim()) {
-        throw new Error('PDF contains no readable text. It might be an image-only scan.');
+        throw new Error('PDF contains no readable text on the first page.');
       }
 
       const skills = this.extractSkills(text);
@@ -54,7 +55,7 @@ export class ResumeService {
         skillsCount: skills.length, 
         durationMs: duration,
         fileSize: buffer.length 
-      }, 'Resume parsed successfully');
+      }, 'Resume parsed (page 1 specialized)');
 
       return { skills, text, pages, metadata };
     } catch (error: any) {
@@ -77,4 +78,4 @@ export class ResumeService {
   }
 }
 
-export const resumeService = new ResumeService();
+export const uploadService = new ResumeService();

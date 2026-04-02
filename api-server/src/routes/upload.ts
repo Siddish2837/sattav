@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import multer from 'multer';
-import { parseResumeController } from '../controllers/resumeController';
+import { parseResumeController } from '../controllers/uploadController';
 
 const router = Router();
 
@@ -27,6 +27,7 @@ const upload = multer({
  * Middleware to handle Multer errors (like file size limit)
  */
 const uploadMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  (req as any)._resumeStartTime = Date.now(); // Start tracking for logging
   upload.single('resume')(req, res, (err: any) => {
     if (err instanceof multer.MulterError) {
       if (err.code === 'LIMIT_FILE_SIZE') {

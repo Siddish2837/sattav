@@ -44,9 +44,28 @@ export default function ResumeAnalyzer() {
       const parseData = await parseResume(file);
       
       setSkills(parseData.skills);
-      setInterests("Technology"); // Default interest for resume flow
+      setInterests("Technology"); 
 
-      // Redirect to results - The recommendations page will fetch results based on the new skills
+      // STEP 2: Generate Recommendations (Sequential)
+      setLoadingState("recommending");
+      const recs = await getRecommendations({
+        skills: parseData.skills,
+        interests: "Technology",
+        careerGoal: "Growth"
+      });
+
+      // Map array to the structured object required by context
+      const dream = recs.find(r => r.difficulty === "Hard") || recs[0];
+      const balanced = recs.find(r => r.difficulty === "Moderate" && r.careerId !== dream?.careerId) || recs[1];
+      const safe = recs.find(r => r.difficulty === "Easy" && r.careerId !== dream?.careerId && r.careerId !== balanced?.careerId) || recs[2];
+
+      setRecommendations({
+        dream: dream ? { career: { ...dream, id: dream.careerId, title: dream.title, type: 'dream' } as any, score: dream.finalScore, reason: dream.reason, missingSkills: dream.missingSkills, matchedSkills: dream.matchedSkills } : null,
+        balanced: balanced ? { career: { ...balanced, id: balanced.careerId, title: balanced.title, type: 'balanced' } as any, score: balanced.finalScore, reason: balanced.reason, missingSkills: balanced.missingSkills, matchedSkills: balanced.matchedSkills } : null,
+        safe: safe ? { career: { ...safe, id: safe.careerId, title: safe.title, type: 'safe' } as any, score: safe.finalScore, reason: safe.reason, missingSkills: safe.missingSkills, matchedSkills: safe.matchedSkills } : null,
+      });
+      
+      // Redirect to results
       setLocation("/recommendations");
     } catch (err: any) {
       setLoadingState("error");
