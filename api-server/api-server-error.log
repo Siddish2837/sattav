@@ -1,0 +1,12 @@
+C:\Users\victu\ca\sattav\api-server\src\routes\upload.ts:31
+const SKILL_REGEX = new RegExp(`\\b(${SKILLS_DB.join('|')}|${Object.keys(SKILL_MAP).join('|')})\\b`, 'gi');
+                    ^
+
+SyntaxError: Invalid regular expression: /\b(python|java|c++|javascript|react|node|sql|machine learning|data analysis|html|css|typescript|docker|kubernetes|aws|cloud|security|statistics|js|ts|ml|ai)\b/gi: Nothing to repeat
+    at new RegExp (<anonymous>)
+    at <anonymous> (C:\Users\victu\ca\sattav\api-server\src\routes\upload.ts:31:21)
+    at ModuleJob.run (node:internal/modules/esm/module_job:430:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:661:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.13.1

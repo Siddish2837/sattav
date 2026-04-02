@@ -46,45 +46,86 @@ export class ApiError extends Error {
 
 /**
  * Generic Fetch Helper for standardized backend responses.
+ * Supports custom timeouts and basic retry logic for network-level failures.
  */
-async function apiFetch<T>(url: string, body: unknown): Promise<T> {
-  const controller = new AbortController();
-  const id = setTimeout(() => controller.abort(), 10000); // 10s timeout
+async function apiFetch<T>(
+  url: string, 
+  body: unknown, 
+  options: { timeout?: number; retries?: number } = {}
+): Promise<T> {
+  const { timeout = 10000, retries = 0 } = options;
+  
+  let lastError: any;
+  for (let i = 0; i <= retries; i++) {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
 
-  try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-      signal: controller.signal,
-    });
-    
-    clearTimeout(id);
+    try {
+      const isFormData = body instanceof FormData;
+      
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: isFormData ? {} : { 'Content-Type': 'application/json' },
+        body: isFormData ? (body as FormData) : JSON.stringify(body),
+        signal: controller.signal,
+      });
+      
+      clearTimeout(id);
 
-    // Expecting { success: boolean, data?: T, error?: { code, message, statusCode } }
-    const json = await res.json().catch(() => ({}));
+      const json = await res.json().catch(() => ({}));
 
-    if (!res.ok || json.success === false) {
-      throw new ApiError(
-        res.status, 
-        json.error?.code ?? 'UNKNOWN', 
-        json.error?.message ?? `HTTP ${res.status} Error`
-      );
+      if (!res.ok || json.success === false) {
+        throw new ApiError(
+          res.status, 
+          json.error?.code ?? 'UNKNOWN', 
+          json.error?.message ?? `HTTP ${res.status} Error`
+        );
+      }
+
+      return json.data as T;
+
+    } catch (err: any) {
+      clearTimeout(id);
+      lastError = err;
+      
+      // Only retry on network errors or timeouts, not on 4xx/5xx coded API errors
+      if (err instanceof ApiError) throw err;
+      
+      if (i < retries) {
+        const delay = Math.pow(2, i) * 1000;
+        await new Promise(r => setTimeout(r, delay));
+        continue;
+      }
     }
-
-    return json.data as T;
-
-  } catch (err) {
-    if (err instanceof ApiError) throw err;
-    if (err instanceof Error && err.name === 'AbortError') {
-      throw new ApiError(408, 'TIMEOUT', 'The request took too long.');
-    }
-    throw new ApiError(500, 'NETWORK_ERROR', 'Failed to connect to the server.');
   }
+
+  if (lastError?.name === 'AbortError') {
+    throw new ApiError(408, 'TIMEOUT', 'The request took too long. The server might be warming up.');
+  }
+  throw new ApiError(500, 'NETWORK_ERROR', lastError?.message || 'Failed to connect to the server.');
 }
+
+export type ParseResponse = {
+  skills: string[];
+  text: string;
+  parsingInfo: {
+    pages: number;
+    metadata: any;
+  };
+};
+
+export const parseResume = (file: File) => {
+  const formData = new FormData();
+  formData.append('resume', file);
+  return apiFetch<ParseResponse>(API_ENDPOINTS.upload, formData, { 
+    timeout: 60000, // 60s timeout for heavy PDF parsing/cold starts
+    retries: 1 
+  });
+};
 
 export const analyzeCareer = (data: AnalyzeInput) =>
   apiFetch<AnalyzeResult>(API_ENDPOINTS.analyze, data);
 
 export const getRecommendations = (data: RecommendInput) =>
   apiFetch<RecommendationResult[]>(API_ENDPOINTS.recommend, data);
+

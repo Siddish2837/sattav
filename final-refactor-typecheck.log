@@ -1,0 +1,18 @@
+
+> workspace@0.0.0 typecheck C:\Users\victu\ca\sattav
+> tsc --build && pnpm -r --if-present run typecheck
+
+Scope: 7 of 8 workspace projects
+api-server typecheck$ tsc -p tsconfig.json --noEmit
+career-engine typecheck$ tsc -p tsconfig.json --noEmit
+scripts typecheck$ tsc -p tsconfig.json --noEmit
+scripts typecheck: Done
+api-server typecheck: Done
+career-engine typecheck: src/lib/api.ts(120,48): error TS2339: Property 'upload' does not exist on type '{ readonly analyze: `${any}/analyze`; readonly recommend: `${any}/recommend`; readonly health: `${any}/api/health`; }'.
+career-engine typecheck: src/pages/ResumeAnalyzer.tsx(57,26): error TS2345: Argument of type 'RecommendationResult[]' is not assignable to parameter of type 'Recommendations'.
+career-engine typecheck:   Type 'RecommendationResult[]' is missing the following properties from type 'Recommendations': safe, balanced, dream
+career-engine typecheck: Failed
+C:\Users\victu\ca\sattav\career-engine:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/career-engine@0.0.0 typecheck: `tsc -p tsconfig.json --noEmit`
+Exit status 2
+ ELIFECYCLE  Command failed with exit code 2.
